@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boilerplate</title>
+  <script type="module" src="/src/main.js"></script>
+  <style>[x-cloak] { display: none !important; }</style>
+</head>
+<body>
+  <div x-data="itemList">
+    <h1>Items</h1>
+
+    <p
+      data-testid="error-message"
+      x-cloak
+      x-show="errorMessage"
+      x-text="errorMessage"
+      style="color: red;"
+    ></p>
+
+    <form @submit.prevent="create">
+      <input
+        data-testid="new-item-input"
+        type="text"
+        x-model="newName"
+        placeholder="Item name"
+      />
+      <button data-testid="create-item-btn" type="submit">Add</button>
+    </form>
+
+    <ul>
+      <template x-for="item in items" :key="item.id">
+        <li>
+          <template x-if="editingId !== item.id">
+            <span>
+              <span data-testid="item-name" x-text="item.name"></span>
+              <button data-testid="edit-item-btn" @click="startEdit(item)">Edit</button>
+              <button data-testid="delete-item-btn" @click="remove(item.id)">Delete</button>
+            </span>
+          </template>
+          <template x-if="editingId === item.id">
+            <span>
+              <input
+                data-testid="edit-item-input"
+                type="text"
+                x-model="editName"
+                @keyup.enter="update(item.id)"
+              />
+              <button data-testid="save-item-btn" @click="update(item.id)">Save</button>
+              <button @click="cancelEdit()">Cancel</button>
+            </span>
+          </template>
+        </li>
+      </template>
+    </ul>
+  </div>
+</body>
+</html>
