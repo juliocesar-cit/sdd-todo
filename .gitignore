@@ -5,3 +5,10 @@ web/dist/
 api/coverage/
 web/test-results/
 web/playwright-report/
+node_modules
+.claude
+.specify
+.superpowers
+CLAUDE.md
+./*.sql
+.vite/
